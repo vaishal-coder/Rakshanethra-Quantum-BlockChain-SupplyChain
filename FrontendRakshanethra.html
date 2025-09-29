@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indigenous Surveillance System - BPRD/MHA Dashboard</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#1f2937'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+        .status-indicator {
+            animation: pulse 2s infinite;
+        }
+        .live-indicator {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        .console-log {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header Section -->
+    <header class="bg-white shadow-lg border-b-4 border-primary">
+        <div class="w-full px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                        <i class="ri-shield-check-line text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-secondary">Indigenous Surveillance System</h1>
+                        <p class="text-sm text-gray-600">BPRD/MHA Dashboard - Secure Operations Center</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full status-indicator"></div>
+                        <span class="text-sm font-medium text-gray-700">System Operational</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full status-indicator"></div>
+                        <span class="text-sm font-medium text-gray-700">Connected</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full status-indicator"></div>
+                        <span class="text-sm font-medium text-gray-700">Secure</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-medium text-gray-700">Officer ID: MHA-2024-001</p>
+                        <p class="text-xs text-gray-500">Last Login: 09:45 AM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="w-full px-6 py-6">
+        <!-- System Overview -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-secondary mb-4">System Overview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg p-6 shadow-md card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">Total Nodes</p>
+                            <p class="text-3xl font-bold text-secondary">11/12</p>
+                            <p class="text-xs text-green-600">91.7% Online</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-radar-line text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-md card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">System Uptime</p>
+                            <p class="text-3xl font-bold text-secondary">99.8%</p>
+                            <p class="text-xs text-green-600">247 days</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-time-line text-blue-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-md card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">Security Status</p>
+                            <p class="text-3xl font-bold text-green-600">SECURE</p>
+                            <p class="text-xs text-gray-500">No threats</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-shield-check-line text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-md card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">Active Cameras</p>
+                            <p class="text-3xl font-bold text-secondary">156</p>
+                            <p class="text-xs text-green-600">All operational</p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-camera-line text-purple-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hardware Verification & Live Feeds -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Hardware Verification -->
+            <section class="bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Hardware Verification Status</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                <i class="ri-check-line text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium">Network Infrastructure</span>
+                        </div>
+                        <span class="text-xs text-gray-500">Verified 2 min ago</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                <i class="ri-check-line text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium">Camera Array Systems</span>
+                        </div>
+                        <span class="text-xs text-gray-500">Verified 1 min ago</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                <i class="ri-check-line text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium">Data Storage Servers</span>
+                        </div>
+                        <span class="text-xs text-gray-500">Verified 3 min ago</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
+                                <i class="ri-time-line text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium">Backup Power Systems</span>
+                        </div>
+                        <span class="text-xs text-gray-500">Checking...</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                <i class="ri-check-line text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium">Encryption Modules</span>
+                        </div>
+                        <span class="text-xs text-gray-500">Verified 30 sec ago</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Camera Feeds -->
+            <section class="bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Live Camera Feeds</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="relative bg-gray-900 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                            <i class="ri-camera-line text-gray-400 text-2xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold live-indicator">
+                            LIVE
+                        </div>
+                        <div class="absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-50 px-2 py-1 rounded">
+                            Sector A - Gate 1
+                        </div>
+                    </div>
+                    <div class="relative bg-gray-900 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                            <i class="ri-camera-line text-gray-400 text-2xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold live-indicator">
+                            LIVE
+                        </div>
+                        <div class="absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-50 px-2 py-1 rounded">
+                            Sector B - Perimeter
+                        </div>
+                    </div>
+                    <div class="relative bg-gray-900 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                            <i class="ri-camera-line text-gray-400 text-2xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold live-indicator">
+                            LIVE
+                        </div>
+                        <div class="absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-50 px-2 py-1 rounded">
+                            Sector C - Main Hall
+                        </div>
+                    </div>
+                    <div class="relative bg-gray-900 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                            <i class="ri-camera-line text-gray-400 text-2xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold live-indicator">
+                            LIVE
+                        </div>
+                        <div class="absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-50 px-2 py-1 rounded">
+                            Sector D - Parking
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Supply Chain & Security Monitoring -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Supply Chain Tracking -->
+            <section class="bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Supply Chain Verification</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Hardware Authentication</span>
+                            <span class="text-sm text-green-600 font-semibold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Software Integrity Check</span>
+                            <span class="text-sm text-green-600 font-semibold">98%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full progress-bar" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Component Traceability</span>
+                            <span class="text-sm text-yellow-600 font-semibold">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Deployment Verification</span>
+                            <span class="text-sm text-green-600 font-semibold">92%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full progress-bar" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                    <p class="text-sm text-blue-800"><strong>Status:</strong> All critical components verified. Minor updates pending for non-critical systems.</p>
+                </div>
+            </section>
+
+            <!-- Security Monitoring -->
+            <section class="bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Security Monitoring</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                <i class="ri-shield-check-line text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Threat Level</p>
+                                <p class="text-xs text-gray-600">Low - No active threats</p>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-bold text-green-600">0</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                <i class="ri-forbid-line text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Blocked Attempts</p>
+                                <p class="text-xs text-gray-600">Last 24 hours</p>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-bold text-blue-600">23</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                                <i class="ri-fingerprint-line text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Integrity Score</p>
+                                <p class="text-xs text-gray-600">System health rating</p>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-bold text-purple-600">97%</span>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-yellow-50 rounded-lg">
+                    <div class="flex items-center space-x-2">
+                        <i class="ri-alert-line text-yellow-600"></i>
+                        <p class="text-sm text-yellow-800"><strong>Alert:</strong> Scheduled maintenance window in 2 hours.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Performance Metrics & Encryption Demo -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Performance Metrics -->
+            <section class="bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">System Performance</h3>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">CPU Usage</span>
+                            <span class="text-sm text-blue-600 font-semibold">34%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-blue-500 h-3 rounded-full progress-bar" style="width: 34%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Memory Usage</span>
+                            <span class="text-sm text-green-600 font-semibold">67%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-500 h-3 rounded-full progress-bar" style="width: 67%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Network Bandwidth</span>
+                            <span class="text-sm text-purple-600 font-semibold">45%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-purple-500 h-3 rounded-full progress-bar" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Storage Usage</span>
+                            <span class="text-sm text-yellow-600 font-semibold">78%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-yellow-500 h-3 rounded-full progress-bar" style="width: 78%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Encryption Demo -->
+            <section class="bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Data Encryption Demo</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Input Data</label>
+                        <textarea id="encryptInput" class="w-full p-3 border border-gray-300 rounded-lg text-sm" rows="3" placeholder="Enter sensitive data to encrypt...">Surveillance Report: Subject identified at location Alpha-7 at 14:30 hours</textarea>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="encryptBtn" class="flex-1 bg-primary text-white px-4 py-2 rounded-button font-medium hover:bg-blue-700 transition-colors whitespace-nowrap">
+                            <i class="ri-lock-line mr-2"></i>Encrypt
+                        </button>
+                        <button id="decryptBtn" class="flex-1 bg-gray-600 text-white px-4 py-2 rounded-button font-medium hover:bg-gray-700 transition-colors whitespace-nowrap">
+                            <i class="ri-lock-unlock-line mr-2"></i>Decrypt
+                        </button>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Encrypted Output</label>
+                        <textarea id="encryptOutput" class="w-full p-3 border border-gray-300 rounded-lg text-sm bg-gray-50" rows="3" readonly placeholder="Encrypted data will appear here..."></textarea>
+                    </div>
+                    <div class="p-3 bg-green-50 rounded-lg">
+                        <p class="text-sm text-green-800"><strong>Algorithm:</strong> AES-256 Military Grade Encryption</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Audit Logs & Control Panel -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Audit Logs -->
+            <section class="lg:col-span-2 bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">System Audit Logs</h3>
+                <div class="console-log rounded-lg p-4 h-64 overflow-y-auto text-sm">
+                    <div id="auditLogs">
+                        <div>[2024-12-28 09:45:32] INFO: System initialization completed successfully</div>
+                        <div>[2024-12-28 09:45:35] AUTH: User MHA-2024-001 authenticated successfully</div>
+                        <div>[2024-12-28 09:46:12] SECURITY: Intrusion attempt blocked from IP 192.168.1.45</div>
+                        <div>[2024-12-28 09:47:23] HARDWARE: Camera array sector-A online and operational</div>
+                        <div>[2024-12-28 09:48:01] ENCRYPTION: Data encryption module self-test passed</div>
+                        <div>[2024-12-28 09:48:45] NETWORK: All surveillance nodes responding normally</div>
+                        <div>[2024-12-28 09:49:12] BACKUP: Automated backup sequence initiated</div>
+                        <div>[2024-12-28 09:50:03] ALERT: Maintenance window scheduled for 12:00 PM</div>
+                        <div>[2024-12-28 09:50:34] PERFORMANCE: System performance within normal parameters</div>
+                        <div>[2024-12-28 09:51:15] SECURITY: Security scan completed - no threats detected</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Panel -->
+            <section class="bg-white rounded-lg p-6 shadow-md">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Control Panel</h3>
+                <div class="space-y-3">
+                    <button id="refreshBtn" class="w-full bg-primary text-white px-4 py-3 rounded-button font-medium hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap">
+                        <i class="ri-refresh-line mr-2"></i>Refresh System
+                    </button>
+                    <button id="scanBtn" class="w-full bg-green-600 text-white px-4 py-3 rounded-button font-medium hover:bg-green-700 transition-colors flex items-center justify-center whitespace-nowrap">
+                        <i class="ri-search-line mr-2"></i>Security Scan
+                    </button>
+                    <button id="exportBtn" class="w-full bg-purple-600 text-white px-4 py-3 rounded-button font-medium hover:bg-purple-700 transition-colors flex items-center justify-center whitespace-nowrap">
+                        <i class="ri-download-line mr-2"></i>Export Data
+                    </button>
+                    <button id="emergencyBtn" class="w-full bg-red-600 text-white px-4 py-3 rounded-button font-medium hover:bg-red-700 transition-colors flex items-center justify-center whitespace-nowrap">
+                        <i class="ri-alarm-warning-line mr-2"></i>Emergency
+                    </button>
+                </div>
+                <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Quick Stats</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Active Sessions:</span>
+                            <span class="font-medium">3</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Data Processed:</span>
+                            <span class="font-medium">2.4 TB</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Alerts Today:</span>
+                            <span class="font-medium">0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script id="encryptionSystem">
+        document.addEventListener('DOMContentLoaded', function() {
+            const encryptBtn = document.getElementById('encryptBtn');
+            const decryptBtn = document.getElementById('decryptBtn');
+            const inputField = document.getElementById('encryptInput');
+            const outputField = document.getElementById('encryptOutput');
+
+            function simpleEncrypt(text) {
+                return btoa(text).split('').reverse().join('');
+            }
+
+            function simpleDecrypt(text) {
+                try {
+                    return atob(text.split('').reverse().join(''));
+                } catch (e) {
+                    return 'Invalid encrypted data';
+                }
+            }
+
+            encryptBtn.addEventListener('click', function() {
+                const inputText = inputField.value;
+                if (inputText.trim()) {
+                    const encrypted = simpleEncrypt(inputText);
+                    outputField.value = encrypted;
+                }
+            });
+
+            decryptBtn.addEventListener('click', function() {
+                const encryptedText = outputField.value;
+                if (encryptedText.trim()) {
+                    const decrypted = simpleDecrypt(encryptedText);
+                    inputField.value = decrypted;
+                }
+            });
+        });
+    </script>
+
+    <script id="auditLogSystem">
+        document.addEventListener('DOMContentLoaded', function() {
+            const auditLogs = document.getElementById('auditLogs');
+            
+            function addLogEntry(message) {
+                const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                const logEntry = document.createElement('div');
+                logEntry.textContent = `[${timestamp}] ${message}`;
+                auditLogs.appendChild(logEntry);
+                auditLogs.scrollTop = auditLogs.scrollHeight;
+            }
+
+            setInterval(() => {
+                const messages = [
+                    'SYSTEM: Routine health check completed',
+                    'NETWORK: Bandwidth utilization normal',
+                    'SECURITY: Firewall status verified',
+                    'HARDWARE: All components responding',
+                    'BACKUP: Incremental backup in progress'
+                ];
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                addLogEntry(randomMessage);
+            }, 10000);
+        });
+    </script>
+
+    <script id="controlPanelSystem">
+        document.addEventListener('DOMContentLoaded', function() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            const scanBtn = document.getElementById('scanBtn');
+            const exportBtn = document.getElementById('exportBtn');
+            const emergencyBtn = document.getElementById('emergencyBtn');
+
+            function showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
+                    type === 'success' ? 'bg-green-500' : 
+                    type === 'warning' ? 'bg-yellow-500' : 
+                    type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+                } text-white`;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+
+            refreshBtn.addEventListener('click', function() {
+                this.innerHTML = '<i class="ri-loader-line mr-2 animate-spin"></i>Refreshing...';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="ri-refresh-line mr-2"></i>Refresh System';
+                    showNotification('System refreshed successfully', 'success');
+                }, 2000);
+            });
+
+            scanBtn.addEventListener('click', function() {
+                this.innerHTML = '<i class="ri-loader-line mr-2 animate-spin"></i>Scanning...';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="ri-search-line mr-2"></i>Security Scan';
+                    showNotification('Security scan completed - no threats found', 'success');
+                }, 3000);
+            });
+
+            exportBtn.addEventListener('click', function() {
+                showNotification('Data export initiated - check downloads folder', 'info');
+            });
+
+            emergencyBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to activate emergency protocols?')) {
+                    showNotification('Emergency protocols activated', 'error');
+                }
+            });
+        });
+    </script>
+
+    <script id="performanceUpdates">
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateProgressBars() {
+                const progressBars = document.querySelectorAll('.progress-bar');
+                progressBars.forEach(bar => {
+                    const currentWidth = parseInt(bar.style.width);
+                    const variation = Math.random() * 10 - 5;
+                    let newWidth = currentWidth + variation;
+                    newWidth = Math.max(0, Math.min(100, newWidth));
+                    bar.style.width = newWidth + '%';
+                    
+                    const parentSection = bar.closest('div').querySelector('span[class*="text-"][class*="font-semibold"]');
+                    if (parentSection) {
+                        parentSection.textContent = Math.round(newWidth) + '%';
+                    }
+                });
+            }
+
+            setInterval(updateProgressBars, 5000);
+        });
+    </script>
+</body>
+</html>
